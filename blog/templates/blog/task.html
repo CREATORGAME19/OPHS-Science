@@ -1,0 +1,138 @@
+<html>
+    <head>
+        <style>#header /*Styles for Header*/
+	{
+		padding: 15px;
+		color: #ffffff;
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+      		font-size: 24px;
+		background-color: #00ddff;
+	}
+	#main {
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 18px;
+	}
+	#button {
+  		background-color: white;
+  		color: black;
+  		border: 2px #e7e7e7;
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 20px;
+		border-radius: 5px;
+	}
+	#button:hover {
+		background-color: #e7e7e7;
+		color: black;
+
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 20px;
+	}
+	#title {
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 24px;
+	}
+	#button1 {
+  		background-color: white;
+  		color: black;
+  		border: 2px solid #e7e7e7;
+		width="50%"
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 20px;
+		border-radius: 5px;
+	}
+	#button1:hover {
+		background-color: #e7e7e7;
+		color: black;
+		width="50%"
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 20px;
+	}
+	#id_subject{
+	            display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s;
+	}
+input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: auto
+}
+
+input[type=checkbox]::-ms-check {
+  display: none;
+}
+input[type=checkbox] {
+  position: relative;
+  width: 1em;
+  height: 1em;
+  border: 1px solid gray;
+  /* Adjusts the position of the checkboxes on the text baseline */ 
+  vertical-align: -2px;
+  /* Set here so that Windows' High-Contrast Mode can override */
+  color: green;
+}
+
+input[type=checkbox]::before {
+  content: "✔";
+  position: absolute;
+  font-size: 1.2em;
+  right: 0;
+  top: -0.3em;
+  visibility: hidden;
+}
+
+input[type=checkbox]:checked::before {
+  /* Use `visibility` instead of `display` to avoid recalculating layout */
+  visibility: visible;
+}
+ul{
+  list-style-type: none;
+ }
+	</style>
+	<title>OPHS Science Request System</title>
+    </head>
+    <body>
+{% load bootstrap4 %}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{{ form.media }}
+        <div>
+            <center><a href="/"><h1 id="header">OPHS Science Request System</h1></a></center>
+        </div>
+	<div id="main">
+	<center id= "main">
+	<h3 id="title">Filter</h3>
+	<form method="post" novalidate>
+  	{% csrf_token %}
+	<table>
+    	{{ form }}
+	</table>
+	<button id="button1" type="submit">Update</button>
+	</form>
+	<h3 id="title">The available practicals are:</h3>
+	{% for i in tasks.all %}
+		{% if i.id == 4 %}
+			<div id="main">
+				<p>{{i.title}}</p>
+			</div>
+		
+		{% else %}
+			<div id="main">
+				<a id="button" href="{% url 'practical_select' i.id %}">{{i.title}}</a>
+			</div>
+		{% endif %}
+	{% endfor %}
+
+	</form>
+	</center>
+	</div>
+	</body>
+</html>

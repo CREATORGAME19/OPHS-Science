@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <style>#header /*Styles for Header*/
+	{
+		padding: 15px;
+		color: #ffffff;
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+      		font-size: 24px;
+		background-color: #00ddff;
+	}
+	#main {
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+	}
+	#button {
+  		background-color: white;
+  		color: black;
+  		border: 2px solid #e7e7e7;
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 20px;
+		border-radius: 5px;
+	}
+	#button:hover {
+		background-color: #e7e7e7; 
+		color: black;
+		
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 20px;
+	}
+	#id_username{
+	            display: block;
+    width: 35%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s;
+	}
+	#id_password{
+	            display: block;
+    width: 35%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .20rem;
+    transition: border-color .15s;
+	}
+	</style>
+	<title>OPHS Science Request System</title>
+    </head>
+    <body>
+{% load bootstrap4 %}       
+{% bootstrap_css %}         
+{% bootstrap_javascript jquery='full' %}  
+{{ form.media }}
+        <div>
+            <center><h1 id="header">OPHS Science Request System</h1></center>
+        </div>
+	<center id= "main">
+        <div>
+		<table>
+		<form method="post" novalidate>
+		{% csrf_token %}
+    		{{form.as_p }}
+		
+		<button id="button" type="submit">Login</button>
+		</table>
+		</form>
+        </div>
+
+	</center>
+	</body>
+</html>

@@ -1,0 +1,155 @@
+<html>
+    <head>
+        <style>#header /*Styles for Header*/
+	{
+		padding: 15px;
+		color: #ffffff;
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+      		font-size: 24px;
+		background-color: #00ddff;
+	}
+	#main {
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+	}
+	#main1 {
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 20px;
+	}
+	#button {
+  		background-color: white;
+  		color: black;
+  		border: 2px #e7e7e7;
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 20px;
+		border-radius: 5px;
+	}
+	#button:hover {
+		background-color: #e7e7e7; 
+		color: black;
+		
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 20px;
+	}
+	#button1 {
+  		background-color: white;
+  		color: black;
+  		border: 2px solid #e7e7e7;
+		width="50%"
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 20px;
+		border-radius: 5px;
+	}
+	#button1:hover {
+		background-color: #e7e7e7;
+		color: black;
+		width="50%"
+		font-family: "Trebuchet MS", Helvetica, sans-serif;
+		font-size: 20px;
+	}
+	#calendar{
+    		width: 25%;
+	}
+input[type=checkbox] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  margin: auto
+}
+
+input[type=checkbox]::-ms-check {
+  display: none;
+}
+input[type=checkbox] {
+  position: relative;
+  width: 1em;
+  height: 1em;
+  border: 1px solid gray;
+  /* Adjusts the position of the checkboxes on the text baseline */ 
+  vertical-align: -2px;
+  /* Set here so that Windows' High-Contrast Mode can override */
+  color: green;
+}
+
+input[type=checkbox]::before {
+  content: "✔";
+  position: absolute;
+  font-size: 1.2em;
+  right: 0;
+  top: -0.3em;
+  visibility: hidden;
+}
+
+input[type=checkbox]:checked::before {
+  /* Use `visibility` instead of `display` to avoid recalculating layout */
+  visibility: visible;
+}
+ul{
+  list-style-type: none;
+ }
+	#filter-field{
+	            display: block;
+    width: 40%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s;
+	}
+	</style>
+	<title>OPHS Science Request System</title>
+    </head>
+    <body>
+{% load bootstrap4 %}       
+{% bootstrap_css %}         
+{% bootstrap_javascript jquery='full' %}  
+{{ form.media }}  
+        <div>
+            <center><h1 id="header">OPHS Science Request System</h1></center>
+        </div>
+	<div id="main">
+	<center id= "main">
+	
+	
+
+	{% block content %}
+	{% if user.is_authenticated %}
+  		<p id="main1">Hi {{ user.username }}!</p>
+		<a id="button" href="{% url 'logout' %}">logout</a>
+		<br><br>
+		<h2>Select the desired year group:</h2>
+		{% for i in year.all %}
+			<div>
+					<a id="button" href="{% url 'year' i.tag %}">Year {{i.tag}}</a>
+        		</div>
+
+
+    	{% endfor %}
+		<div id="calendar">
+		<br><h2>Calendar:</h2>
+		<form method="post" novalidate>
+		{% csrf_token %}
+            <p>Date: </p>{{ form.date }}<br><div id="filter-field"><h5>Filter Calendar:</h5><br><b><p>Subject: </p></b>{{ form.subject }}<br><b><p>Technicians: </p></b>{{ form.technician }}</div>
+		<br>
+{{ form.non_field_errors }} 
+{% if form.errors %} 
+        {{ form.errors|pluralize }} 
+{% endif %} 
+{% for field in form %} 
+        {{ field.error }} 
+        {{ field.field.error }} 
+{% endfor %} 
+		<button id="button1" type="submit">View</button>
+		</form>
+	{% else %}
+  		<p id="main1">You are not logged in</p>
+  		<a id="button" href="{% url 'login' %}">login</a>
+	{% endif %}
+	{% endblock %}
+
+	</center>
+	</div>
+	</body>
+</html>
